@@ -1,0 +1,29 @@
+#!/bin/bash -el
+
+# Configuring proxy...
+export http_proxy=http://10.131.188.1:80
+export https_proxy=http://10.131.188.1:80
+
+source /var/lib/tsuru/base/rc/config
+
+# Update Ubuntu and install unzip and zip
+apt-get update &&
+apt-get install -y unzip zip --no-install-recommends 
+
+# Download and install SDKMAN
+curl -s get.sdkman.io | bash
+
+# Initialize SDKMAN
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# SDKMAN install Java 8u152-zulu
+sdk install java 8u152-zulu
+#Prints the java version
+java -version
+
+# SDKMAN install Gradle 4.4.1
+sdk install gradle 4.4.1
+# Prints the Gradle version
+gradle -version
+
+echo $PATH
